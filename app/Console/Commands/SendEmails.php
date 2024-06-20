@@ -14,7 +14,7 @@ class SendEmails extends Command
      *
      * @var string
      */
-    protected $signature = 'app:send-emails';
+    protected $signature = 'digital:send-emails';
 
     /**
      * The console command description.
@@ -29,8 +29,19 @@ class SendEmails extends Command
     public function handle()
     {
         $emails = Subscriber::all()->pluck('email')->toArray();
-        $posts = Post::query()->where('email_sent', false)->get()->toArray();
+        $posts = Post::query()->where('email_sent', false)->get();
+        $email_sended_posts = $posts->toArray();
 
-        PostNotification::dispatch($emails, $posts)->onQueue('emails');
+        foreach ($posts as $post) {
+            $post->email_sent = true;
+            $post->save();
+        }
+
+        if (!empty($email_sended_posts)) {
+            PostNotification::dispatch($emails, $email_sended_posts)->onQueue('emails');
+            $this->info('Posts sent to subscribers successfully.');
+        } else {
+            $this->info('Posts already sent to subscribers successfully.');
+        }
     }
 }

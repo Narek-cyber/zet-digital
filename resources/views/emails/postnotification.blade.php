@@ -10,7 +10,8 @@
 <body>
 @if(isset($posts) && !empty($posts))
     @foreach($posts as $post)
-        <p>{{ $post['title'] }}</p>
+        <h1>{{ $post['title'] }}</h1>
+        <p>{{ $post['description'] }}</p>
     @endforeach
 @endif
 </body>
