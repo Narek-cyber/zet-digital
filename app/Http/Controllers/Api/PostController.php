@@ -15,6 +15,7 @@ class PostController extends Controller
     /**
      * @param PostService $postService
      * @param Request $request
+     * @param $id
      * @return JsonResponse|null
      */
     public function store(PostService $postService, Request $request, $id)
@@ -22,7 +23,6 @@ class PostController extends Controller
         try {
             $data = $request->all();
             $data['website_id'] = $id;
-            /** @var TYPE_NAME $postService */
             return $postService->store($data);
         } catch (ValidationException $e) {
             Log::error(__CLASS__ . '::' . __FUNCTION__ . "->" . $e->getMessage());

@@ -17,7 +17,11 @@ class EmailProcessed
     /**
      * Create a new event instance.
      */
-    public function __construct(public $email)
+    public function __construct(
+        public $email,
+        public $url,
+        public $name
+    )
     {
         //
     }

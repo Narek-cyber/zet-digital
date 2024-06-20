@@ -4,10 +4,10 @@ namespace App\Services;
 
 use App\Events\EmailProcessed;
 use App\Models\Subscriber;
+use App\Models\Website;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpFoundation\Response;
 
 class SubscriberService
 {
@@ -31,13 +31,15 @@ class SubscriberService
             throw new ValidationException($validator);
         }
 
+        $website = Website::query()->find($data['website_id']);
+
         Subscriber::query()->create([
             'user_id' => $data['user_id'],
             'website_id' => $data['website_id'],
             'email' => $data['email'],
         ]);
 
-        event(new EmailProcessed($data['email']));
+        event(new EmailProcessed($data['email'], $website->{'url'}, $website->{'name'}));
 
         return response()->json([
             'status' => true,

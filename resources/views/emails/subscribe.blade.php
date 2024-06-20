@@ -9,5 +9,10 @@
 </head>
 <body>
 <h1>Thanks to subscription</h1>
+<a
+    href="{{ $url }}"
+>
+    {{ $name }}
+</a>
 </body>
 </html>

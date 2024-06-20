@@ -23,6 +23,6 @@ class SendEmailNotification
      */
     public function handle(EmailProcessed $event): void
     {
-        Mail::to($event->email)->send(new SubscribtionEmail());
+        Mail::to($event->email)->send(new SubscribtionEmail($event->url, $event->name));
     }
 }
