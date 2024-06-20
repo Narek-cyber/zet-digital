@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\EmailProcessed;
 use App\Models\Subscriber;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -35,6 +36,8 @@ class SubscriberService
             'website_id' => $data['website_id'],
             'email' => $data['email'],
         ]);
+
+        event(new EmailProcessed($data['email']));
 
         return response()->json([
             'status' => true,
