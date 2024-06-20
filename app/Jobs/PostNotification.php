@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Mail\PostEmail;
-use App\Mail\TestMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -31,7 +30,6 @@ class PostNotification implements ShouldQueue
      */
     public function handle(): void
     {
-//        Mail::to($this->emails)->send(new PostEmail($this->posts));
-        Mail::to(['narsahakyan.work@gmail.com', 'nsahakyan.work@gmail.com'])->send(new PostEmail($this->posts));
+        Mail::to($this->emails)->send(new PostEmail($this->posts));
     }
 }

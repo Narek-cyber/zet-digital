@@ -2,6 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\PostNotification;
+use App\Models\Post;
+use App\Models\Subscriber;
 use Illuminate\Console\Command;
 
 class SendEmails extends Command
@@ -25,6 +28,9 @@ class SendEmails extends Command
      */
     public function handle()
     {
-        //
+        $emails = Subscriber::all()->pluck('email')->toArray();
+        $posts = Post::query()->where('email_sent', false)->get()->toArray();
+
+        PostNotification::dispatch($emails, $posts)->onQueue('emails');
     }
 }
