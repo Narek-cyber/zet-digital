@@ -17,9 +17,9 @@ class SubscriberService
     public function store($data)
     {
         $validator = Validator::make($data, [
-            'user_id' => ['required', 'integer', 'exists:users,id'],
+            'user_id' => ['required', 'exists:users,id'],
             'website_id' => ['required', 'integer', 'exists:websites,id'],
-            'email' => ['required', 'string', 'email'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:subscribers,email'],
             Rule::unique('subscribers')->where(function ($query) use ($data) {
                 return $query
                     ->where('user_id', $data['user_id'])
