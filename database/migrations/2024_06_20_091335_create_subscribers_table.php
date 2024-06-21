@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('website_id')->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->timestamps();
 
             $table->unique(['user_id', 'website_id']);

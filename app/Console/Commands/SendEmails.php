@@ -37,7 +37,7 @@ class SendEmails extends Command
             $post->save();
         }
 
-        if (!empty($email_sended_posts)) {
+        if (!empty($email_sended_posts) && !empty($emails)) {
             PostNotification::dispatch($emails, $email_sended_posts)->onQueue('emails');
             $this->info('Posts sent to subscribers successfully.');
         } else {

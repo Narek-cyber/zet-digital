@@ -1,0 +1,7 @@
+php artisan schedule:run
+php artisan schedule:list
+https://medium.com/@techsolutionstuff/laravel-11-cron-job-task-scheduling-example-b58da7687b38
+routes/console.php
+
+php artisan digital:send-emails
+

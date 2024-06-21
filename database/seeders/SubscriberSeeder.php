@@ -21,7 +21,7 @@ class SubscriberSeeder extends Seeder
                 Subscriber::query()->create([
                     'user_id' => $user,
                     'website_id' => $key + 1,
-                    'email' => Factory::create()->email,
+                    'email' => Factory::create()->unique()->email,
                 ]);
             }
         }
